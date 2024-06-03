@@ -1,6 +1,5 @@
 package com.example.faturamento_app_aula;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,13 +9,8 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //realacionando com o id que foi cadastrado lá no arquivo xml
-        mTextViewSaldo = findViewById(R.id.textView2);
+        mTextViewSaldo = findViewById(R.id.textView3);
         mEditTextValor = findViewById(R.id.editTextTextPersonName);
         mRadioGroup = findViewById(R.id.radioGroup);
         mButton = findViewById(R.id.button);
@@ -64,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
         //para botoes, usar View.OnClickListener() que é o padrão, para chamar direto no XML
        mButton.setOnClickListener(new View.OnClickListener() {  //esperar ele abrir as opções para selecionar, já traz as partes necessárias do código.
-           @SuppressLint("NonConstantResourceId")
+           //@SuppressLint("NonConstantResourceId")
            @Override
            public void onClick(View view) {
                if (!mEditTextValor.getText().toString().isEmpty()){
@@ -110,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 //soma o valor atual e soma com o valor que veio no parametro no inicio da função
                 float novoValor = valorAtual + valor;
                 //adicionar valor associado ao nao - chave (ano) e valor (valor)
-                sharedPreferences.edit().putFloat(String.valueOf(ano), valor);
+                sharedPreferences.edit().putFloat(String.valueOf(ano), novoValor).apply();
     }
 
     private void excluirValor(int ano, float valor) {
