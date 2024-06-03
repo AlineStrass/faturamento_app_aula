@@ -1,6 +1,7 @@
 package com.example.faturamento_app_aula;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -82,18 +83,34 @@ public class MainActivity extends AppCompatActivity {
            }
        });
 
-       /*
-       ButtonTitulo.setOnClickListener(new View.OnClickListener() {
+       //botao que muda o nome da empresa
+       mButtonTitulo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), PersonalizarActivity.class);
-                startActivity(intent);
+                //executa ações na aplicação - intent explicito, pois chama outra activity de outro projeto - há outros, implicitos que chamam parte do código - apps externos (mapas, camera, etc)
+                Intent intent = new Intent(getBaseContext(), MainActivity2.class);
+                startActivity(intent); //aqui ela é chamada
             }
       });
-        */
+
     }
 
-    //implementação das funções
+    //função que atualiza o nome da empresa - nome do app
+    @Override
+    protected void onResume(){
+        super.onResume();
+
+        SharedPreferences sharedPreferences = getSharedPreferences(ARQUIVO_MEUS_DADOS, Context.MODE_PRIVATE);
+        String nomeFantasia = sharedPreferences.getString("nomeFantasia", null);
+        if(nomeFantasia!=null){
+            setTitle(nomeFantasia);
+        }
+        // só para exibir o saldo
+        int ano = numberPicker.getValue();
+        exibirSaldo(ano);
+    }
+
+    //implementação das funções dos valores do faturamento - adição e exclusao
     private void adicionarValor(int ano, float valor) {
         //instanciar um objeto SharedPreferences (para salvar informações)
         SharedPreferences sharedPreferences =
